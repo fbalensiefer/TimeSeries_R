@@ -67,7 +67,7 @@ abline(v=0,lty=2)
 lines(density(z2),xlim=c(-10,20),col=4)
 
 ### Qantile - Quantile Plots
-#   Handy tool to test wether your data is distributed as assumed
+#   Handy tool to test whether your data is distributed as assumed
 #   e.g. normally distributed 
 #   Why? This is important for further inference and to identify potential outliers
 par(mfrow=c(1,2))
