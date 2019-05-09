@@ -11,7 +11,8 @@
 #install.packages("urca")
 
 rm(list=ls())
-cat("\014")  
+cat("\014")
+dev.off()
 setwd("~/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
 #setwd("C:/Users/fabia/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
 library(dynlm)
@@ -26,7 +27,7 @@ cpi=read.csv("cpi.csv")
 y = cpi[,2]
 y = ts(y,start=c(1947,1),freq=4)     # defining as TS
 par(mfrow=c(2,2))
-z = 400*diff(log(y))  
+z = 400*diff(log(y))
 z2 = window(z,c(1984,1),c(2019,1))
 # 2x3 format
 par(mfrow=c(2,3))
@@ -47,11 +48,11 @@ plot(Pacf(z2,lag.max=40,plot=F))
 
 # test: non-zero autocorrelation at lags 4,8,12 (Ljung-Box)
 Box.test(z2,lag = 4, type = 'Ljung-Box')   # p-value is 0.0005 hence we reject
-Box.test(z2,lag = 8, type = 'Ljung-Box') 
-Box.test(z2,lag = 12, type = 'Ljung-Box') 
+Box.test(z2,lag = 8, type = 'Ljung-Box')
+Box.test(z2,lag = 12, type = 'Ljung-Box')
 
 
-### How to set/ choose AR model? 
+### How to set/ choose AR model?
 #   Solution: by using information criteria e.g. AIC, BIC ...
 #   Note: BIC is more restrictive when it comes to adding lags
 
@@ -65,9 +66,9 @@ res5 = ar5$residuals
 par(mfrow=c(1,2))
 plot(res5)
 plot(Acf(res5,lag.max=40,plot=F))
-Box.test(res5,lag = 4, type = 'Ljung-Box')   
-Box.test(res5,lag = 8, type = 'Ljung-Box') 
-Box.test(res5,lag = 12, type = 'Ljung-Box') 
+Box.test(res5,lag = 4, type = 'Ljung-Box')
+Box.test(res5,lag = 8, type = 'Ljung-Box')
+Box.test(res5,lag = 12, type = 'Ljung-Box')
 
 ### Constructing a Forecast for US-CPI in 2019Q2
 #   using a simple AR(1)
@@ -82,7 +83,7 @@ forec.upp = forec + 1.96*ar1$sigma
 forec.low = forec - 1.96*ar1$sigma
 round(c(forec.low,forec,forec.upp),3) # hence, our forecast is very unprecise!
 
-### Inspect residuals under normality 
+### Inspect residuals under normality
 jarque.bera.test(ar1$res)
 qqnorm(ar1$res)
 qqline(ar1$res)
@@ -98,4 +99,4 @@ ar1 = summary(ar1.mod)
 ar1
 jarque.bera.test(ar1$res)
 qqnorm(ar1$res)
-qqline(ar1$res) 
+qqline(ar1$res)

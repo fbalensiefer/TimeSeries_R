@@ -11,7 +11,8 @@
 #install.packages("urca")
 
 rm(list=ls())
-cat("\014")  
+cat("\014")
+dev.off()
 setwd("~/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
 #setwd("C:/Users/fabia/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
 library(dynlm)
@@ -28,9 +29,9 @@ par(mfrow=c(2,2))
 ts.plot(y)
 Acf(y,lag.max=40)
 z = 400*diff(log(y))                 # US-cpi inflation (400= 100%*4Q) yearly
-ts.plot(z,col=2)             
+ts.plot(z,col=2)
 abline(h=0,lty=3)
-abline(v=c(1984,1),lty=2)            # Note: there is a structural break in 1984Q1 
+abline(v=c(1984,1),lty=2)            # Note: there is a structural break in 1984Q1
 Acf(z,lag.max=40,plot=F)             # access the ACF directly
 
 ### AR(1) - Auto-regressive Regression model order 1
@@ -46,7 +47,7 @@ lines(ar1.mod$coef[2]^lags,col=2)
 ar2.mod = dynlm(z ~ L(z,c(1,2)))
 summary(ar2.mod)
 
-### Split the sample since we observe a structural break in the data 
+### Split the sample since we observe a structural break in the data
 #   Idea: before 1984Q1 high Variance, after 1984Q1 less Variance
 #   Note: we still estimate with OLS, hence assume homoskecasticity
 
@@ -68,7 +69,7 @@ lines(density(z2),xlim=c(-10,20),col=4)
 
 ### Qantile - Quantile Plots
 #   Handy tool to test whether your data is distributed as assumed
-#   e.g. normally distributed 
+#   e.g. normally distributed
 #   Why? This is important for further inference and to identify potential outliers
 par(mfrow=c(1,2))
 qqnorm(z1)
