@@ -33,17 +33,17 @@ RESULT=rep(NA,12)
 ### Analysis on complete sample including the structural break (1984)
 
 # AR(1) 
-model= auto.arima(z, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = T) 
+model= auto.arima(z, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[1]=forec$mean
 
 # AR(2)
-model= auto.arima(z, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = T) 
+model= auto.arima(z, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[2]=forec$mean
 
 # Auto ARIMA(p,q)
-model = auto.arima(z, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = T) 
+model = auto.arima(z, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[3]=forec$mean
 
@@ -63,17 +63,17 @@ z2 = window(z,c(1984,1),c(2019,1))
 ### Analysis on subset z1
 
 # AR(1) 
-model= auto.arima(z1, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = T) 
+model= auto.arima(z1, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[5]=forec$mean
 
 # AR(2)
-model= auto.arima(z1, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = T) 
+model= auto.arima(z1, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[6]=forec$mean
 
 # Auto ARIMA(p,q)
-model = auto.arima(z1, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = T) 
+model = auto.arima(z1, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[7]=forec$mean
 
@@ -86,17 +86,17 @@ RESULT[8]=forec$mean
 ### Analysis on subset z2
 
 # AR(1) 
-model= auto.arima(z2, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = T) 
+model= auto.arima(z2, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[9]=forec$mean
 
 # AR(2)
-model= auto.arima(z2, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = T) 
+model= auto.arima(z2, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[10]=forec$mean
 
 # Auto ARIMA(p,q)
-model = auto.arima(z2, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = T) 
+model = auto.arima(z2, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
 RESULT[11]=forec$mean
 
