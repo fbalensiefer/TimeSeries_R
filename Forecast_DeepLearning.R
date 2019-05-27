@@ -10,8 +10,8 @@
 rm(list=ls())
 cat("\014") 
 dev.off()
-setwd("~/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
-#setwd("C:/Users/fabia/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
+#setwd("~/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
+setwd("C:/Users/fabia/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
 library(keras)
 library(tensorflow)
 

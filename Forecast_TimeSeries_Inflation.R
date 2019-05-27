@@ -1,5 +1,5 @@
 #####################################################################
-###   Time Series Forecasting using LSTM and Keras
+###   Time Series Forecasting 
 #####################################################################
 
 ### Preface
@@ -12,8 +12,8 @@
 rm(list=ls())
 cat("\014")
 dev.off()
-setwd("~/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
-#setwd("C:/Users/fabia/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
+#setwd("~/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
+setwd("C:/Users/fabia/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
 library(forecast)
 library(tseries)
 library(urca)
