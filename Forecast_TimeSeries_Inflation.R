@@ -7,6 +7,7 @@
 #install.packages("tseries")
 #install.packages("forecast")
 #install.packages("urca")
+#install.packages("rugarch")
 
 
 rm(list=ls())
@@ -17,6 +18,7 @@ setwd("C:/Users/fabia/Google Drive/UniBonn/X_Time_Series/TimeSeries_R")
 library(forecast)
 library(tseries)
 library(urca)
+library(rugarch)
 
 #####################################################################
 ###   Exmaple: CPI from US-FRED quarterly and seasonal adjusted
@@ -27,7 +29,7 @@ y = cpi[,2]
 y = ts(y,start=c(1947,1),freq=4)     # defining as TS
 z = 400*diff(log(y))                 # US-cpi inflation (400= 100%*4Q) yearly
 z=z[,2]
-RESULT=rep(NA,12)
+RESULT=rep(NA,13)
 
 #####################################################################
 ### Analysis on complete sample including the structural break (1984)
@@ -104,6 +106,11 @@ RESULT[11]=forec$mean
 model= arfima(z2)
 forec=forecast(model,h=1)
 RESULT[12]=forec$mean
+
+# GRACH(1,1)
+model = garch(z2 ,c(1,1))
+forec=forecast(model,h=1)
+RESULT[13]=forec$mean
 
 #####################################################################
 ### Calculation of the average Forecast
