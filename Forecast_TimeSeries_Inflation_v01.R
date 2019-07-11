@@ -21,7 +21,7 @@ library(urca)
 library(rugarch)
 
 #####################################################################
-###   Exmaple: CPI from US-FRED quarterly and seasonal adjusted
+###   Example: CPI from US-FRED quarterly and seasonal adjusted
 ###            "CPIAUCSL"
 
 cpi=read.csv("cpi.csv")
@@ -29,7 +29,7 @@ y = cpi[,2]
 y = ts(y,start=c(1947,1),freq=4)     # defining as TS
 z = 400*diff(log(y))                 # US-cpi inflation (400= 100%*4Q) yearly
 z=z[,2]
-RESULT=rep(NA,13)
+RESULT=rep(NA,8)
 
 #####################################################################
 ### Analysis on complete sample including the structural break (1984)
@@ -65,24 +65,24 @@ z2 = window(z,c(1984,1),c(2019,1))
 ### Analysis on subset z1
 
 # AR(1) 
-model= auto.arima(z1, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
-forec=forecast(model,h=1)
-RESULT[5]=forec$mean
+#model= auto.arima(z1, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
+#forec=forecast(model,h=1)
+#RESULT[5]=forec$mean
 
 # AR(2)
-model= auto.arima(z1, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
-forec=forecast(model,h=1)
-RESULT[6]=forec$mean
+#model= auto.arima(z1, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
+#forec=forecast(model,h=1)
+#RESULT[6]=forec$mean
 
 # Auto ARIMA(p,q)
-model = auto.arima(z1, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = F) 
-forec=forecast(model,h=1)
-RESULT[7]=forec$mean
+#model = auto.arima(z1, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = F) 
+#forec=forecast(model,h=1)
+#RESULT[7]=forec$mean
 
 # ARFIMA - Fractional Integration
-model= arfima(z1)
-forec=forecast(model,h=1)
-RESULT[8]=forec$mean
+#model= arfima(z1)
+#forec=forecast(model,h=1)
+#RESULT[8]=forec$mean
 
 #####################################################################
 ### Analysis on subset z2
@@ -90,31 +90,34 @@ RESULT[8]=forec$mean
 # AR(1) 
 model= auto.arima(z2, max.p = 1, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
-RESULT[9]=forec$mean
+RESULT[5]=forec$mean
 
 # AR(2)
 model= auto.arima(z2, max.p = 2, max.q = 0 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
-RESULT[10]=forec$mean
+RESULT[6]=forec$mean
 
 # Auto ARIMA(p,q)
 model = auto.arima(z2, max.p = 5, max.q = 5 ,ic="bic", seasonal = F, stationary = F) 
 forec=forecast(model,h=1)
-RESULT[11]=forec$mean
+RESULT[7]=forec$mean
 
 # ARFIMA - Fractional Integration
 model= arfima(z2)
 forec=forecast(model,h=1)
-RESULT[12]=forec$mean
+RESULT[8]=forec$mean
+
+#####################################################################
+### GARCH model for z2
 
 # GRACH(1,1)
 model = garch(z2 ,c(1,1))
 forec=forecast(model,h=1)
-RESULT[13]=forec$mean
+garch=forec$mean
 
 #####################################################################
 ### Calculation of the average Forecast
 
-forecast_inflation=mean(RESULT)
+forecast_inflation=(mean(RESULT)+garch)/2
 paste("The current Inflation in 2019 Q1 is:", z[288])
 paste("The Inflation Forecast for 2019 Q2 is:", forecast_inflation)
